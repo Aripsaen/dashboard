@@ -25,19 +25,23 @@ function App() {
     /* Variable de estado y función de actualización */
   }
 
+  const [city, setCity] = useState('Guayaquil');
   let [indicators, setIndicators] = useState<Indicator[]>([]);
-  let [owm, setOWM] = useState(localStorage.getItem("openWeatherMap"));
+  let [owm, setOWM] = useState(localStorage.getItem("openWeatherMap"))
 
   {
     /* Hook: useEffect */
   }
   useEffect(() => {
     let request = async () => {
-      
-      {/* Request */}
+      {
+        /* Request */
+      }
+      //let API_KEY = "OPENWEATHERMAP' API KEY"
+      //3c2fd3c052d827c60a63ca04e025f7a7
       let API_KEY = "3c2fd3c052d827c60a63ca04e025f7a7";
       let response = await fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?q=Guayaquil&mode=xml&appid=${API_KEY}`
+        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&mode=xml&appid=${API_KEY}`
       );
       let savedTextXML = await response.text();
 
@@ -99,7 +103,7 @@ function App() {
     };
 
     request();
-  }, []);
+  }, [city]);
 
   let renderIndicators = () => {
     return indicators.map((indicator, idx) => (
@@ -115,29 +119,23 @@ function App() {
 
   return (
     <Grid container spacing={5}>
-      <Grid size={{ xs: 12, xl: 3 }}>
-        <ControlRegion />
-      </Grid>
-      {/* Indicadores */}
 
-      {/*            
-             <Grid size={{ xs: 12, xl: 3 }}><IndicatorWeather title={'Indicator 1'} subtitle={'Unidad 1'} value={"1.23"} /> </Grid>
-             <Grid size={{ xs: 12, xl: 3 }}><IndicatorWeather title={'Indicator 2'} subtitle={'Unidad 2'} value={"3.12"} /></Grid>
-             <Grid size={{ xs: 12, xl: 3 }}><IndicatorWeather title={'Indicator 3'} subtitle={'Unidad 3'} value={"2.31"} /></Grid>
-             <Grid size={{ xs: 12, xl: 3 }}><IndicatorWeather title={'Indicator 4'} subtitle={'Unidad 4'} value={"3.21"} /></Grid>
- */}
+      <Grid size={{ xs: 12, xl: 4 }}>
+        <ControlRegion onCityChange={setCity} />
+      </Grid>
 
       {renderIndicators()}
       {/* aqui va renderIndicators */}
 
       {/* Tabla */}
       {/* <Grid size={{ xs: 12, xl: 8 }}>Elemento: Tabla</Grid> */}
-
+        
       {/* Grid Anidado */}
       <Grid container spacing={2}>
         <Grid size={{ xs: 12, xl: 3 }}>
           <ControlWeather />
         </Grid>
+        
         <Grid size={{ xs: 12, xl: 9 }}>
           <TableWeather />
         </Grid>

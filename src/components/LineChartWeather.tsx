@@ -15,7 +15,7 @@ export default function LineChartWeather() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const apiKey = "tu_api_key";  // Asegúrate de usar tu clave API real
+      const apiKey = "3c2fd3c052d827c60a63ca04e025f7a7";  // Asegúrate de usar tu clave API real
       const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=Guayaquil&appid=${apiKey}&units=metric`);
       const data = await response.json();
 
