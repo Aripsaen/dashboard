@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line, ResponsiveContainer } from 'recharts';
 import Paper from '@mui/material/Paper';
+import ControlWeather from './ControlWeather';
 
 interface WeatherData {
   dt_txt: string;
@@ -8,10 +9,23 @@ interface WeatherData {
     temp: number;
     humidity: number;
   };
+  clouds: {
+    all: number; // Porcentaje de nubosidad
+  };
+  rain?: {
+    '3h': number; // Precipitación en los últimos 3 horas
+  };
 }
 
-export default function LineChartWeather() {
+interface LineChartWeatherProps {
+  selectedParameter: number | null; // Esta es la prop para el parámetro seleccionado
+}
+
+
+export default function LineChartWeather({ selectedParameter }: LineChartWeatherProps) {
   const [chartData, setChartData] = useState([]);
+  // const [selectedParameter, setSelectedParameter] = useState(null); // Nuevo estado para el parámetro seleccionado
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,7 +36,9 @@ export default function LineChartWeather() {
       const processedData = data.list.map((item: WeatherData) => ({
         time: item.dt_txt,
         temperature: item.main.temp,
-        humidity: item.main.humidity
+        humidity: item.main.humidity,
+        cloudiness: item.clouds.all,
+        precipitation: item.rain ? item.rain['3h'] : 0  // Asumiendo que puede no haber precipitación
       }));
 
       setChartData(processedData);
@@ -30,6 +46,10 @@ export default function LineChartWeather() {
 
     fetchData();
   }, []);
+
+  // const handleSelectChange = (index: number) => {
+  //   setSelectedParameter(index);
+  // };
 
   return (
     <Paper style={{ height: 400, padding: '20px' }}>
@@ -40,8 +60,13 @@ export default function LineChartWeather() {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="temperature" stroke="#8884d8" activeDot={{ r: 8 }} />
+          {/* <Line type="monotone" dataKey="temperature" stroke="#8884d8" activeDot={{ r: 8 }} />
           <Line type="monotone" dataKey="humidity" stroke="#82ca9d" />
+          <Line type="monotone" dataKey="cloudiness" stroke="#ffc658" />
+          <Line type="monotone" dataKey="precipitation" stroke="#ff7300" /> */}
+          {selectedParameter === 1 && <Line type="monotone" dataKey="humidity" stroke="#82ca9d" />}
+          {selectedParameter === 0 && <Line type="monotone" dataKey="precipitation" stroke="#ff7300" />}
+          {selectedParameter === 2 && <Line type="monotone" dataKey="cloudiness" stroke="#ffc658" />}
         </LineChart>
       </ResponsiveContainer>
     </Paper>

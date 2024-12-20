@@ -25,6 +25,7 @@ function App() {
     /* Variable de estado y función de actualización */
   }
 
+  const [selectedParameter, setSelectedParameter] = useState<number | null>(null); 
   const [city, setCity] = useState('Guayaquil');
   let [indicators, setIndicators] = useState<Indicator[]>([]);
   let [owm, setOWM] = useState(localStorage.getItem("openWeatherMap"))
@@ -133,7 +134,7 @@ function App() {
       {/* Grid Anidado */}
       <Grid container spacing={2}>
         <Grid size={{ xs: 12, xl: 3 }}>
-          <ControlWeather />
+          <ControlWeather onSelectChange={setSelectedParameter}/>
         </Grid>
         
         <Grid size={{ xs: 12, xl: 9 }}>
@@ -143,7 +144,7 @@ function App() {
 
       {/* Gráfico */}
       <Grid size={{ xs: 12, xl: 4 }}>
-        <LineChartWeather />
+        <LineChartWeather selectedParameter={selectedParameter}/>
       </Grid>
     </Grid>
   );

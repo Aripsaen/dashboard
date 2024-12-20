@@ -10,8 +10,12 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useState, useRef } from 'react';
 
+interface Props {
+    onSelectChange: (index: number) => void;
+  }
 
-export default function ControlWeather() {
+
+export default function ControlWeather({ onSelectChange }: Props) {
 
     const descriptionRef = useRef<HTMLDivElement>(null);
 
@@ -34,6 +38,7 @@ export default function ControlWeather() {
         let idx = parseInt(event.target.value)
         // alert( idx );
         setSelected(idx);
+        onSelectChange(idx); 
 
         {/* Modificación de la referencia descriptionRef */ }
         if (descriptionRef.current !== null) {
