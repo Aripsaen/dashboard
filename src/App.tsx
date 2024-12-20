@@ -137,7 +137,7 @@ function App() {
         </Grid>
         
         <Grid size={{ xs: 12, xl: 9 }}>
-          <TableWeather />
+          <TableWeather city={city} />
         </Grid>
       </Grid>
 

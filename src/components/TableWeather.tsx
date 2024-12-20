@@ -8,10 +8,15 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import CircularProgress from '@mui/material/CircularProgress'; // Importa el componente CircularProgress
 
+
 // Define una interfaz para los datos de las filas
 interface RowData {
   name: string;
   value: string;
+}
+
+interface TableWeatherProps {
+  city: string;
 }
 
 // Función para crear los datos de las filas
@@ -19,7 +24,7 @@ function createData(name: string, value: string): RowData {
   return { name, value };
 }
 
-export default function TableWeather() {
+export default function TableWeather({ city }: TableWeatherProps) {
   // Usa la interfaz RowData para el tipo de estado de rows
   const [rows, setRows] = useState<RowData[]>([]);
   const [loading, setLoading] = useState(false); // Estado para controlar la carga
@@ -29,7 +34,7 @@ export default function TableWeather() {
       setLoading(true); // Inicia la carga
       try {
         const apiKey = "3c2fd3c052d827c60a63ca04e025f7a7";
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=Guayaquil&appid=${apiKey}&units=metric`);
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`);
         if (!response.ok) {
           throw new Error('Failed to fetch weather data');
         }
@@ -49,7 +54,7 @@ export default function TableWeather() {
       setLoading(false); // Finaliza la carga
     };
     fetchWeatherData();    
-  }, []);
+  }, [city]);
 
   if (loading) {
     return <CircularProgress />; // Muestra el spinner de carga
