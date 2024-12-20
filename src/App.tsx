@@ -38,8 +38,6 @@ function App() {
       {
         /* Request */
       }
-      //let API_KEY = "OPENWEATHERMAP' API KEY"
-      //3c2fd3c052d827c60a63ca04e025f7a7
       let API_KEY = "3c2fd3c052d827c60a63ca04e025f7a7";
       let response = await fetch(
         `https://api.openweathermap.org/data/2.5/forecast?q=${city}&mode=xml&appid=${API_KEY}`

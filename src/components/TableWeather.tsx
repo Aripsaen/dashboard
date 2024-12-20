@@ -6,10 +6,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import CircularProgress from '@mui/material/CircularProgress'; // Importa el componente CircularProgress
+import CircularProgress from '@mui/material/CircularProgress';
 
-
-// Define una interfaz para los datos de las filas
+// interfaz para los datos de las filas
 interface RowData {
   name: string;
   value: string;
@@ -25,7 +24,7 @@ function createData(name: string, value: string): RowData {
 }
 
 export default function TableWeather({ city }: TableWeatherProps) {
-  // Usa la interfaz RowData para el tipo de estado de rows
+  // interfaz RowData para el tipo de estado de rows
   const [rows, setRows] = useState<RowData[]>([]);
   const [loading, setLoading] = useState(false); // Estado para controlar la carga
 

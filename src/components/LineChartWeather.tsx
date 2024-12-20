@@ -24,7 +24,7 @@ interface LineChartWeatherProps {
 
 export default function LineChartWeather({ selectedParameter }: LineChartWeatherProps) {
   const [chartData, setChartData] = useState([]);
-  // const [selectedParameter, setSelectedParameter] = useState(null); // Nuevo estado para el parámetro seleccionado
+  // const [selectedParameter, setSelectedParameter] = useState(null);
 
 
   useEffect(() => {
