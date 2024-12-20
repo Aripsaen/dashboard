@@ -7,6 +7,7 @@ import IndicatorWeather from "./components/IndicatorWeather";
 import TableWeather from "./components/TableWeather";
 import ControlWeather from "./components/ControlWeather";
 import LineChartWeather from "./components/LineChartWeather";
+import ControlRegion from "./components/ControlRegion";
 import { useEffect, useState } from "react";
 
 {
@@ -23,18 +24,17 @@ function App() {
   {
     /* Variable de estado y función de actualización */
   }
+
   let [indicators, setIndicators] = useState<Indicator[]>([]);
+  let [owm, setOWM] = useState(localStorage.getItem("openWeatherMap"));
 
   {
     /* Hook: useEffect */
   }
   useEffect(() => {
     let request = async () => {
-      {
-        /* Request */
-      }
-      //let API_KEY = "OPENWEATHERMAP' API KEY"
-      //3c2fd3c052d827c60a63ca04e025f7a7
+      
+      {/* Request */}
       let API_KEY = "3c2fd3c052d827c60a63ca04e025f7a7";
       let response = await fetch(
         `https://api.openweathermap.org/data/2.5/forecast?q=Guayaquil&mode=xml&appid=${API_KEY}`
@@ -115,6 +115,9 @@ function App() {
 
   return (
     <Grid container spacing={5}>
+      <Grid size={{ xs: 12, xl: 3 }}>
+        <ControlRegion />
+      </Grid>
       {/* Indicadores */}
 
       {/*            
@@ -125,9 +128,10 @@ function App() {
  */}
 
       {renderIndicators()}
+      {/* aqui va renderIndicators */}
 
       {/* Tabla */}
-      <Grid size={{ xs: 12, xl: 8 }}>Elemento: Tabla</Grid>
+      {/* <Grid size={{ xs: 12, xl: 8 }}>Elemento: Tabla</Grid> */}
 
       {/* Grid Anidado */}
       <Grid container spacing={2}>

@@ -1,38 +1,49 @@
+import React, { useEffect, useState } from 'react';
+import { LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line, ResponsiveContainer } from 'recharts';
 import Paper from '@mui/material/Paper';
- import { LineChart } from '@mui/x-charts/LineChart';
 
- const uData = [4000, 3000, 2000, 2780, 1890, 2390, 3490];
- const pData = [2400, 1398, 9800, 3908, 4800, 3800, 4300];
- const xLabels = [
-     'Page A',
-     'Page B',
-     'Page C',
-     'Page D',
-     'Page E',
-     'Page F',
-     'Page G',
- ];
+interface WeatherData {
+  dt_txt: string;
+  main: {
+    temp: number;
+    humidity: number;
+  };
+}
 
- export default function LineChartWeather() {
-     return (
-         <Paper
-             sx={{
-                 p: 2,
-                 display: 'flex',
-                 flexDirection: 'column'
-             }}
-         >
+export default function LineChartWeather() {
+  const [chartData, setChartData] = useState([]);
 
-             {/* Componente para un gráfico de líneas */}
-             <LineChart
-                 width={400}
-                 height={250}
-                 series={[
-                     { data: pData, label: 'pv' },
-                     { data: uData, label: 'uv' },
-                 ]}
-                 xAxis={[{ scaleType: 'point', data: xLabels }]}
-             />
-         </Paper>
-     );
- }
+  useEffect(() => {
+    const fetchData = async () => {
+      const apiKey = "tu_api_key";  // Asegúrate de usar tu clave API real
+      const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=Guayaquil&appid=${apiKey}&units=metric`);
+      const data = await response.json();
+
+      const processedData = data.list.map((item: WeatherData) => ({
+        time: item.dt_txt,
+        temperature: item.main.temp,
+        humidity: item.main.humidity
+      }));
+
+      setChartData(processedData);
+    };
+
+    fetchData();
+  }, []);
+
+  return (
+    <Paper style={{ height: 400, padding: '20px' }}>
+      <ResponsiveContainer width="100%" height="100%">
+        <LineChart data={chartData}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="time" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line type="monotone" dataKey="temperature" stroke="#8884d8" activeDot={{ r: 8 }} />
+          <Line type="monotone" dataKey="humidity" stroke="#82ca9d" />
+        </LineChart>
+      </ResponsiveContainer>
+    </Paper>
+  );
+}
