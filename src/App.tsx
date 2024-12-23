@@ -29,6 +29,8 @@ function App() {
   const [city, setCity] = useState('Guayaquil');
   let [indicators, setIndicators] = useState<Indicator[]>([]);
   let [owm, setOWM] = useState(localStorage.getItem("openWeatherMap"))
+  console.log(owm)
+  console.log(setOWM)
 
   {
     /* Hook: useEffect */
@@ -142,7 +144,7 @@ function App() {
 
       {/* Gráfico */}
       <Grid size={{ xs: 12, xl: 4 }}>
-        <LineChartWeather selectedParameter={selectedParameter}/>
+        <LineChartWeather selectedParameter={selectedParameter} city={city}/>
       </Grid>
     </Grid>
   );

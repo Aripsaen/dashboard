@@ -14,6 +14,7 @@ interface ControlRegionProps {
 export default function ControlRegion({ onCityChange }: ControlRegionProps) {
     const descriptionRef = useRef<HTMLDivElement>(null);
     const [selected, setRegion] = useState(-1);
+    console.log(selected);
     const items = [
         { "name": "Guayaquil", "description": "Guayaquil es una ciudad ecuatoriana, capital de la provincia del Guayas." },
         { "name": "Quito", "description": "Quito es la capital de la República del Ecuador." },

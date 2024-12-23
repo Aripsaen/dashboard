@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line, ResponsiveContainer } from 'recharts';
 import Paper from '@mui/material/Paper';
-import ControlWeather from './ControlWeather';
+// import ControlWeather from './ControlWeather';
 
 interface WeatherData {
   dt_txt: string;
@@ -19,10 +19,11 @@ interface WeatherData {
 
 interface LineChartWeatherProps {
   selectedParameter: number | null; // Esta es la prop para el parámetro seleccionado
+  city: string;
 }
 
 
-export default function LineChartWeather({ selectedParameter }: LineChartWeatherProps) {
+export default function LineChartWeather({ selectedParameter, city }: LineChartWeatherProps) {
   const [chartData, setChartData] = useState([]);
   // const [selectedParameter, setSelectedParameter] = useState(null);
 
@@ -30,7 +31,7 @@ export default function LineChartWeather({ selectedParameter }: LineChartWeather
   useEffect(() => {
     const fetchData = async () => {
       const apiKey = "3c2fd3c052d827c60a63ca04e025f7a7";  // Asegúrate de usar tu clave API real
-      const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=Guayaquil&appid=${apiKey}&units=metric`);
+      const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`);
       const data = await response.json();
 
       const processedData = data.list.map((item: WeatherData) => ({
@@ -45,7 +46,7 @@ export default function LineChartWeather({ selectedParameter }: LineChartWeather
     };
 
     fetchData();
-  }, []);
+  }, [city]);
 
   // const handleSelectChange = (index: number) => {
   //   setSelectedParameter(index);
