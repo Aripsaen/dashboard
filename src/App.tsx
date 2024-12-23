@@ -25,12 +25,14 @@ function App() {
     /* Variable de estado y función de actualización */
   }
 
-  const [selectedParameter, setSelectedParameter] = useState<number | null>(null); 
-  const [city, setCity] = useState('Guayaquil');
+  const [selectedParameter, setSelectedParameter] = useState<number | null>(
+    null
+  );
+  const [city, setCity] = useState("Guayaquil");
   let [indicators, setIndicators] = useState<Indicator[]>([]);
-  let [owm, setOWM] = useState(localStorage.getItem("openWeatherMap"))
-  console.log(owm)
-  console.log(setOWM)
+  let [owm, setOWM] = useState(localStorage.getItem("openWeatherMap"));
+  console.log(owm);
+  console.log(setOWM);
 
   {
     /* Hook: useEffect */
@@ -120,8 +122,7 @@ function App() {
 
   return (
     <Grid container spacing={5}>
-
-      <Grid size={{ xs: 12, xl: 4 }}>
+      <Grid size={{ xs: 12, xl: 3 }}>
         <ControlRegion onCityChange={setCity} />
       </Grid>
 
@@ -130,21 +131,21 @@ function App() {
 
       {/* Tabla */}
       {/* <Grid size={{ xs: 12, xl: 8 }}>Elemento: Tabla</Grid> */}
-        
+
       {/* Grid Anidado */}
       <Grid container spacing={2}>
-        <Grid size={{ xs: 12, xl: 3 }}>
-          <ControlWeather onSelectChange={setSelectedParameter}/>
+        <Grid size={{ xs: 12, xl: 6 }}>
+          <ControlWeather onSelectChange={setSelectedParameter} />
         </Grid>
-        
-        <Grid size={{ xs: 12, xl: 9 }}>
+
+        {/* Gráfico */}
+        <Grid size={{ xs: 12, xl: 3 }}>
+          <LineChartWeather selectedParameter={selectedParameter} city={city} />
+        </Grid>
+
+        <Grid size={{ xs: 12, xl: 6 }}>
           <TableWeather city={city} />
         </Grid>
-      </Grid>
-
-      {/* Gráfico */}
-      <Grid size={{ xs: 12, xl: 4 }}>
-        <LineChartWeather selectedParameter={selectedParameter} city={city}/>
       </Grid>
     </Grid>
   );
