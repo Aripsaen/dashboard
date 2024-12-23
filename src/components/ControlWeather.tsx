@@ -21,6 +21,7 @@ export default function ControlWeather({ onSelectChange }: Props) {
 
     {/* Variable de estado y función de actualización */ }
     let [selected, setSelected] = useState(-1)
+    console.log(selected);
 
     {/* Arreglo de objetos */ }
     let items = [
